@@ -1,0 +1,68 @@
+{
+  "name": "onny",
+  "version": "0.1.0",
+  "description": "onny",
+  "main": "build/desktop.bundle.js",
+  "scripts": {
+    "clean": "rimraf build/* && rimraf *.log && rimraf tests-results",
+    "clean-pre-build": "npm run clean && npm run build:dev:dll",
+    "lint": "tslint ./src/**/*.ts -t verbose",
+    "build:dev": "concurrently \"npm run build:dev:desktop\" \"npm run build:dev:browser\" ",
+    "build:dev:run": "cross-env NODE_ENV=development webpack --profile --progress --watch --colors",
+    "build:dev:desktop": "cross-env BUILD_TARGET=DESKTOP npm run build:dev:run",
+    "build:dev:browser": "cross-env BUILD_TARGET=BROWSER npm run build:dev:run",
+    "build:dev:dll": "webpack -p --progress --colors --config webpack.dll.config.js",
+    "app": "cross-env NODE_ENV=development electron .",
+    "package:osx": "rimraf ./Onny-darwin-x64 && electron-packager ./build Onny --platform=darwin --arch=x64 --overwrite && echo 'ofd ./Onny-darwin-x64'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HellsHamsters/onny.git"
+  },
+  "author": {
+    "name": "Anton Piskunov",
+    "email": "for@a-piskunov.ru",
+    "url": "https://github.com/smile42ru"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/HellsHamsters/onny/issues"
+  },
+  "homepage": "https://github.com/HellsHamsters/onny#readme",
+  "dependencies": {
+    "@types/node": "^7.0.0",
+    "@types/webpack": "^2.2.0",
+    "codelyzer": "^2.0.0-beta.4",
+    "css-loader": "^0.26.1",
+    "devtron": "^1.4.0",
+    "electron-context-menu": "^0.8.0",
+    "electron-notifications": "^0.1.5",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.4",
+    "html-webpack-plugin": "^2.26.0",
+    "jquery": "^3.1.1",
+    "node-notifier": "^4.6.1",
+    "node-sass": "^4.3.0",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "to-string-loader": "^1.1.5",
+    "ts-loader": "^1.3.3",
+    "tslint": "^4.3.1",
+    "typedoc": "^0.5.5",
+    "url-loader": "^0.5.7",
+    "webpack": "^2.2.0-rc.4",
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-hot-middleware": "^2.15.0",
+    "webpack-merge": "^2.4.0",
+    "webpack-notifier": "^1.5.0",
+    "webpack-target-electron-renderer": "^0.4.0"
+  },
+  "devDependencies": {
+    "electron": "^1.4.14"
+  },
+  "devEngines": {
+    "node": ">=7.x",
+    "npm": ">=4.x"
+  }
+}
